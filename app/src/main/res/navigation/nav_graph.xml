@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/cadTarefaFragment">
+    <fragment
+        android:id="@+id/principalFragment"
+        android:name="br.senais.sp.cotia.todolist.fragment.PrincipalFragment"
+        android:label="fragment_principal"
+        tools:layout="@layout/fragment_principal" >
+        <action
+            android:id="@+id/action_principalFragment_to_cadTarefaFragment"
+            app:destination="@id/cadTarefaFragment" />
+        <action
+            android:id="@+id/action_principalFragment_to_detalheTarefaFragment"
+            app:destination="@id/detalheTarefaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cadTarefaFragment"
+        android:name="br.senais.sp.cotia.todolist.fragment.CadTarefaFragment"
+        android:label="fragment_cad_tarefa"
+        tools:layout="@layout/fragment_cad_tarefa" />
+    <fragment
+        android:id="@+id/detalheTarefaFragment"
+        android:name="br.senais.sp.cotia.todolist.fragment.DetalheTarefaFragment"
+        android:label="fragment_detalhe_tarefa"
+        tools:layout="@layout/fragment_detalhe_tarefa" >
+        <action
+            android:id="@+id/action_detalheTarefaFragment_to_cadSubtarefaFragment2"
+            app:destination="@id/cadSubtarefaFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/cadSubtarefaFragment2"
+        android:name="br.senais.sp.cotia.todolist.fragment.CadSubtarefaFragment"
+        android:label="fragment_cad_subtarefa"
+        tools:layout="@layout/fragment_cad_subtarefa" />
+</navigation>
