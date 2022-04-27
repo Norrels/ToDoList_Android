@@ -32,6 +32,10 @@ android {
 }
 
 dependencies {
+    def room_version = "2.4.2"
+    //Precisa dele para criar o banco de dados, Room database
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
     //Precisa dela para criar o navhost
     implementation 'androidx.navigation:navigation-fragment:2.4.2'
     implementation 'androidx.appcompat:appcompat:1.4.1'
