@@ -3,6 +3,9 @@ package br.senais.sp.cotia.todolist.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Entity
 public class Tarefa {
     @PrimaryKey(autoGenerate = true)
@@ -59,5 +62,9 @@ public class Tarefa {
 
     public void setDataFinalizada(long dataFinalizada) {
         this.dataFinalizada = dataFinalizada;
+    }
+
+    public boolean isConcluido(){
+        return dataFinalizada != 0;
     }
 }
