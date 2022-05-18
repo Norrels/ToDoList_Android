@@ -3,11 +3,12 @@ package br.senais.sp.cotia.todolist.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-public class Tarefa {
+public class Tarefa implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private Long idTarefa;
     private String titulo;

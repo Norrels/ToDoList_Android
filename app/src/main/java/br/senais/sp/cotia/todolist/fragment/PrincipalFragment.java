@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,15 @@ public class PrincipalFragment extends Fragment {
         binding.btNovaTarefa.setOnClickListener(v -> {
             NavHostFragment.findNavController(PrincipalFragment.this).navigate(R.id.action_principalFragment_to_cadTarefaFragment);
         });
+
+        //Instancia a database
+        database = AppDatabase.getDatabase(getContext());
+
+        binding.recyclerTarefas.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //executar a asyntask
+        new ReadTarefa().execute();
+
         return binding.getRoot();
     }
 
@@ -45,13 +55,26 @@ public class PrincipalFragment extends Fragment {
 
         @Override
         protected List<Tarefa> doInBackground(Void... voids) {
-            return null;
+            // buscar as tarefas e guardar na variavel tarefas
+            tarefas = database.getTarefaDao().getAll();
+            return tarefas;
         }
 
-        @NonNull
         @Override
-        protected Object clone() throws CloneNotSupportedException {
-            return super.clone();
+        protected void onPostExecute(List<Tarefa> tarefas) {
+            //instancia o adapter
+            adapter = new TarefaAdapter(tarefas, getContext(), listerClick);
+            //aplica o adapter no recycler
+            binding.recyclerTarefas.setAdapter(adapter);
         }
     }
+
+    //Listener para click nas tarefas
+    private TarefaAdapter.OnTarefaClickLister listerClick = (view, tarefa) -> {
+      // variavel para "pendurar" a tarefa
+      Bundle bundle = new Bundle();
+      bundle.putSerializable("Tarefa", tarefa);
+      // navega para o fragment de detalhes
+        NavHostFragment.findNavController(PrincipalFragment.this).navigate(R.id.action_principalFragment_to_detalheTarefaFragment, bundle);
+    };
 }

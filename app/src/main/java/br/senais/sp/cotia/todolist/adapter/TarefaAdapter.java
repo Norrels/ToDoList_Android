@@ -1,6 +1,7 @@
 package br.senais.sp.cotia.todolist.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +22,14 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
     private List<Tarefa> tarefas;
     //varivel para o Context
     private Context context;
+    //vairavel pro listener
+    private OnTarefaClickLister listerTarefa;
 
     //construtor que recebe os paramentros para o adapter
-    public TarefaAdapter(List<Tarefa> lista, Context contexto){
+    public TarefaAdapter(List<Tarefa> lista, Context contexto, OnTarefaClickLister listerTarefa){
         this.tarefas = lista;
         this.context = contexto;
+        this.listerTarefa = listerTarefa;
     }
 
     @NonNull
@@ -50,6 +54,10 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
         if (t.isConcluido()){
             holder.tarefa.setBackgroundColor(context.getResources().getColor(R.color.concluida));
         }
+        //implemntar o clique na tarefa
+        holder.itemView.setOnClickListener(v -> {
+            listerTarefa.onClick(v, t);
+        });
     }
 
     @Override
@@ -72,5 +80,10 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
             TvDescrição = view.findViewById(R.id.tv_descricao);
             tarefa = view.findViewById(R.id.linear_tarefa);
         }
+    }
+    //interface para o click na tarefa
+    public interface OnTarefaClickLister{
+        void onClick(View v, Tarefa t);
+
     }
 }
